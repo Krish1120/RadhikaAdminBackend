@@ -21,7 +21,11 @@ Route.post(
   upload.array("productPicture"),
   productController.addNewProduct
 );
-// Route.put("/updateProduct/:id", productController.updateProduct);
+Route.post(
+  "/editProduct",
+  upload.array("productPicture"),
+  productController.editProduct
+);
 Route.delete("/deleteProduct/:id", productController.deleteProduct);
 
 module.exports = Route;
