@@ -14,9 +14,15 @@ exports.viewAllUsers = async (req, res) => {
 // update order.
 exports.updateOrder = async (req, res) => {
   try {
-    const update = await orderModel.findByIdAndUpdate(req.params.id, {
-      status: req.body.status,
-    });
+    const { status } = req.body;
+    const update = await orderModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          status,
+        },
+      }
+    );
     res.status(200).json({
       message: "Order Status updated.",
     });

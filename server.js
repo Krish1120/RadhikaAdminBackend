@@ -34,3 +34,5 @@ const couponRoute = require("./routes/couponRoute");
 app.use("/", couponRoute);
 const userRoute = require("./routes/userRoute");
 app.use("/", userRoute);
+const pushNotificationRoute = require("./routes/pushNotificationRoute");
+app.use("/", pushNotificationRoute);

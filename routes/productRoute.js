@@ -16,10 +16,16 @@ const upload = multer({ storage: storage, fileFilter });
 
 Route.get("/", productController.startPage);
 Route.get("/viewAllProducts", productController.viewAllProducts);
+Route.get("/viewAllBanners", productController.viewAllBanners);
 Route.post(
   "/addNewProduct",
   upload.array("productPicture"),
   productController.addNewProduct
+);
+Route.post(
+  "/addNewBanner",
+  upload.array("productPicture"),
+  productController.addNewBanner
 );
 Route.post(
   "/editProduct",
@@ -27,5 +33,6 @@ Route.post(
   productController.editProduct
 );
 Route.delete("/deleteProduct/:id", productController.deleteProduct);
+Route.delete("/deleteBanner/:id", productController.deleteBanner);
 
 module.exports = Route;

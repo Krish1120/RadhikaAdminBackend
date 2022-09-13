@@ -29,14 +29,28 @@ const orderSchema = Schema(
     status: {
       type: String,
     },
-    razorpay: {
-      orderId: String,
-      paymentID: String,
-      signature: String,
+    razorpay_order_id: {
+      type: String,
+      required: true,
+    },
+    razorpay_payment_id: {
+      type: String,
+      required: true,
+    },
+    razorpay_signature: {
+      type: String,
+      required: true,
+    },
+    shipRocketOrderId: {
+      type: String,
+      required: true,
+    },
+    shipRocketShipmentId: {
+      type: String,
+      required: true,
     },
     reason: {
       type: String,
-      required: false,
     },
   },
   { timestamps: true }

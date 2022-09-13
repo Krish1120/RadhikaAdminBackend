@@ -1,6 +1,6 @@
 const couponModel = require("../model/coupon");
 
-//show product details page controller.
+//show coupon details page controller.
 exports.viewAllCoupons = async (req, res) => {
   try {
     let coupons;

@@ -31,6 +31,9 @@ const userSchema = Schema(
     phoneOTP: {
       type: String,
     },
+    fcmToken: {
+      type: String,
+    },
     status: {
       type: Boolean,
       default: false,

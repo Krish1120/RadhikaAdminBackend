@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const productModel = require("../model/product");
+const bannerModel = require("../model/banner");
 
 const accessKey = process.env.AWS_ACCESS_KEY_ID;
 
@@ -193,6 +194,67 @@ exports.deleteProduct = async (req, res) => {
     const remove = await productModel.findByIdAndDelete(req.params.id);
     res.status(200).json({
       message: "Product deleted.",
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+//show Banners  controller.
+exports.viewAllBanners = async (req, res) => {
+  try {
+    let banners;
+    banners = await bannerModel.find();
+    res.status(200).json(banners);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+// Add banner controller
+exports.addNewBanner = async (req, res, next) => {
+  const results = await uploadS3(req.files);
+  const { screen } = req.body;
+  let bannerImage = [];
+  if (results.length > 0) {
+    bannerImage = results.map((file) => {
+      return { imgUrl: file.Location, s3Key: file.key };
+    });
+  }
+  const banner = await bannerModel({
+    screen,
+    bannerImage,
+  });
+  banner.save((err, banner) => {
+    if (!err) {
+      res.status(200).json({
+        status: "Success",
+        result: banner,
+        message: "Banner added.",
+      });
+    } else {
+      res.status(404).json({
+        result: err,
+        message: "Error while adding banner.",
+      });
+    }
+  });
+};
+
+// delete banner controller
+exports.deleteBanner = async (req, res) => {
+  try {
+    const ban = await bannerModel.findById({ _id: req.params.id });
+    let s3keys = [];
+    if (ban.bannerImage.length > 0) {
+      s3keys = await ban.bannerImage.map((file) => {
+        return { s3Key: file.s3Key };
+      });
+    }
+    const results = await deleteS3(s3keys);
+    const remove = await bannerModel.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      message: "Banner deleted.",
     });
   } catch (err) {
     res.status(500).json(err);
