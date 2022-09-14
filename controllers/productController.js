@@ -178,6 +178,25 @@ exports.editProduct = async (req, res) => {
       res.status(500).json(err);
     });
 };
+// update product.
+exports.updateProduct = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const update = await productModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          status,
+        },
+      }
+    );
+    res.status(200).json({
+      message: "Product Status updated.",
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 //delete product.
 
