@@ -35,5 +35,6 @@ Route.post(
 Route.delete("/deleteProduct/:id", productController.deleteProduct);
 Route.delete("/deleteBanner/:id", productController.deleteBanner);
 Route.patch("/updateProduct/:id", productController.updateProduct);
+Route.patch("/updateProductSize/:id", productController.updateProductSize);
 
 module.exports = Route;

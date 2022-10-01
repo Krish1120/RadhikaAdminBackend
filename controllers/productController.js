@@ -198,6 +198,26 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
+// update product Size.
+exports.updateProductSize = async (req, res) => {
+  try {
+    const { size } = req.body;
+    const update = await productModel.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          size,
+        },
+      }
+    );
+    res.status(200).json({
+      message: "Product Size updated.",
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 //delete product.
 
 exports.deleteProduct = async (req, res) => {
