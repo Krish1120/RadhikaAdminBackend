@@ -63,7 +63,7 @@ exports.sendNotification = async (req, res) => {
     body,
     notificationImage,
   });
-  notification.save();
+  await notification.save();
 
   const users = await userModel.find();
   let userTokens = [];
@@ -77,6 +77,7 @@ exports.sendNotification = async (req, res) => {
       }
     }
   });
+
   const message = {
     data: {
       title: title,
